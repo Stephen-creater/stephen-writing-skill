@@ -30,10 +30,10 @@
 
 ## 版本管理
 
-Skill 的更新先在“日课创作”项目 Git 仓库中提交，再通过 Git subtree 推送到公开仓库 `Stephen-creater/stephen-writing-skill`。未经确认的初稿保留在项目 `work/` 目录，不直接进入案例库。
+Skill 的更新先在“日课创作”项目 Git 仓库中提交，再运行项目维护脚本，同步到公开仓库 `Stephen-creater/stephen-writing-skill`。未经确认的初稿保留在项目 `work/` 目录，不直接进入案例库。
 
 本地项目中的公开同步命令：
 
 ```bash
-git subtree push --prefix=stephen-writing-skill stephen-writing-skill main
+python3 scripts/push_stephen_writing_skill.py
 ```
