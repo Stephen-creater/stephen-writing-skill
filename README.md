@@ -30,10 +30,4 @@
 
 ## 版本管理
 
-Skill 的更新先在“日课创作”项目 Git 仓库中提交，再运行项目维护脚本，同步到公开仓库 `Stephen-creater/stephen-writing-skill`。未经确认的初稿保留在项目 `work/` 目录，不直接进入案例库。
-
-本地项目中的公开同步命令：
-
-```bash
-python3 scripts/push_stephen_writing_skill.py
-```
+Skill 的更新先在“日课创作”项目 Git 仓库中提交，再同步到公开仓库 `Stephen-creater/stephen-writing-skill`。公开同步由父项目维护脚本负责，该脚本不属于公开 Skill。未经确认的初稿保留在项目 `work/` 目录，不直接进入案例库。
