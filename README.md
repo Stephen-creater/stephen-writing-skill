@@ -1,6 +1,6 @@
 # Stephen Writing Skill
 
-这是 Stephen 在“日课创作”项目内持续维护和使用的个人写作 Skill。它用于根据 Stephen 的既有文章风格，撰写、整合和修改 AI 热点、产品评测、概念解释与实践指南。
+这是 Stephen 在「日课创作」项目内持续维护和使用的个人写作 Skill。它用于根据 Stephen 的既有文章风格，撰写、整合和修改 AI 热点、产品评测、概念解释与实践指南。
 
 ## 最重要的写作原则
 
@@ -9,6 +9,7 @@
 - 正确、精彩、信息量大的内容，也可能因为不推动主线而被整节删除。
 - 一个意思只说一次，换一种表述仍然算重复。
 - Aha moment 由正文的逻辑闭合产生，结尾不临时制造高潮。
+- 正文默认不用引号；确实需要时只用「」。尽可能不用破折号。
 
 ## 目录
 
@@ -17,10 +18,11 @@
 - `references/check_standards.md`：交付前必须执行的检查标准。
 - `examples/`：按文章类型分类的定稿案例与分类标准。
 - `scripts/save_draft.py`：用户确认定稿后使用的存档脚本。
+- `scripts/check_style.py`：检查正文中的引号和破折号。
 
 ## 建议阅读顺序
 
-1. 先读 `SKILL.md` 的“最高优先级”和工作流。
+1. 先读 `SKILL.md` 的「最高优先级」和工作流。
 2. 再读 `references/voice.md` 与 `references/check_standards.md`。
 3. 根据要写的文章类型，只读对应分类的 `standards.md` 和一至两篇最终案例。
 
@@ -30,4 +32,4 @@
 
 ## 版本管理
 
-Skill 的更新先在“日课创作”项目 Git 仓库中提交，再同步到公开仓库 `Stephen-creater/stephen-writing-skill`。公开同步由父项目维护脚本负责，该脚本不属于公开 Skill。未经确认的初稿保留在项目 `work/` 目录，不直接进入案例库。
+Skill 的更新先在「日课创作」项目 Git 仓库中提交，再同步到公开仓库 `Stephen-creater/stephen-writing-skill`。公开同步由父项目维护脚本负责，该脚本不属于公开 Skill。未经确认的初稿保留在项目 `work/` 目录，不直接进入案例库。
