@@ -14,6 +14,14 @@ DISALLOWED = {
     '–': '连接号式破折号',
 }
 
+DISALLOWED_PATTERNS = (
+    (re.compile(r'不是[^。！？\n]{0,24}而是'), '翻案句「不是 X，而是 Y」'),
+    (re.compile(r'并非[^。！？\n]{0,24}而是'), '翻案句「并非 X，而是 Y」'),
+    (re.compile(r'不在于[^。！？\n]{0,24}而在于'), '翻案句「不在于 X，而在于 Y」'),
+    (re.compile(r'与其说[^。！？\n]{0,24}不如说'), '翻案句「与其说 X，不如说 Y」'),
+    (re.compile(r'是[^。！？\n]{1,20}[，,]\s*不是'), '翻案句「是 X，不是 Y」'),
+)
+
 
 @dataclass(frozen=True)
 class Issue:
@@ -47,6 +55,16 @@ def find_issues(text: str) -> list[Issue]:
                         column=column,
                         character=character,
                         label=DISALLOWED[character],
+                    )
+                )
+        for pattern, label in DISALLOWED_PATTERNS:
+            for match in pattern.finditer(line):
+                issues.append(
+                    Issue(
+                        line=line_number,
+                        column=match.start() + 1,
+                        character=match.group(),
+                        label=label,
                     )
                 )
     return issues
