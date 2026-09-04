@@ -47,7 +47,14 @@ def prose_lines(text: str):
 def find_issues(text: str) -> list[Issue]:
     issues: list[Issue] = []
     for line_number, line in prose_lines(text):
+        linked_dash_indices = {
+            index
+            for match in re.finditer(r'——(?=\[)', line)
+            for index in range(match.start(), match.end())
+        }
         for column, character in enumerate(line, start=1):
+            if character == '—' and column - 1 in linked_dash_indices:
+                continue
             if character in DISALLOWED:
                 issues.append(
                     Issue(
