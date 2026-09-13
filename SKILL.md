@@ -1,6 +1,6 @@
 ---
 name: stephen-writing-skill
-description: 按 Stephen 的个人判断与中文表达习惯，撰写、整合或重写 AI 热点、产品体验、概念方法和实践指南；也用于从 Stephen 的定稿与审核反馈中更新写作标准。不是通用仿写器，不负责虚构亲历或替用户发布。
+description: "按 Stephen 的文章风格和已确认反馈撰写或改写 AI 文章。"
 ---
 
 # Stephen 日课创作
