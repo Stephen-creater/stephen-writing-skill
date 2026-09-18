@@ -36,7 +36,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="将确认后的文章存入项目成稿目录")
     parser.add_argument("title")
     parser.add_argument("source", type=Path)
-    parser.add_argument("--project-root", type=Path, default=Path.cwd())
+    parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path(__file__).resolve().parents[2],
+        help="默认是 Skill 根目录的上一级",
+    )
     args = parser.parse_args()
 
     target = save_draft(args.title, args.source, args.project_root.resolve())

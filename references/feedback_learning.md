@@ -82,8 +82,8 @@
 
 用户确认定稿后再更新案例。规则更新完成后运行结构校验、链接检查和样式检查，并按项目 Git 纪律提交与同步。
 
-如需把确认稿另存到父项目成稿目录，使用：
+如需把确认稿另存到父项目 `成稿/YYYY-MM/`，使用下面的命令；脚本默认按自身真实路径定位父项目，与当前工作目录无关：
 
 ```bash
-python3 stephen-writing-skill/scripts/save_draft.py "文章标题" "待存档文件.md"
+python3 "<skill-root>/scripts/save_draft.py" "文章标题" "待存档文件.md"
 ```

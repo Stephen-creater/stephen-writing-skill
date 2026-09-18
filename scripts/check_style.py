@@ -78,7 +78,7 @@ def find_issues(text: str) -> list[Issue]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description='检查正文中的引号和破折号')
+    parser = argparse.ArgumentParser(description='检查正文中的双引号、破折号和翻案句')
     parser.add_argument('path', type=Path)
     args = parser.parse_args()
 

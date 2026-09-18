@@ -1,6 +1,6 @@
 ---
 name: stephen-writing-skill
-description: "按 Stephen 的文章风格和已确认反馈撰写或改写 AI 文章。"
+description: "按 Stephen 的编辑判断与作者声音，把链接、截图、逐字稿、研究材料或草稿写成、改写或压缩为中文 AI 日课文章，覆盖 AI 热点与产品发布、产品实测评测、概念与方法论拆解、实践指南与避坑；也用于用户交付定稿或逐条审核后，把反馈沉淀进本 Skill。不用于非 AI 主题、纯翻译、社媒卡片或封面排版、以及仅需发布到飞书或公众号的任务。"
 ---
 
 # Stephen 日课创作
@@ -18,6 +18,10 @@ description: "按 Stephen 的文章风格和已确认反馈撰写或改写 AI �
 5. 信息密度、个人语气和格式偏好。
 
 旧案例、默认比例和分类惯例不能覆盖用户本次要求。案例证明写法，不自动证明其中的时效事实。
+
+## 路径约定
+
+下文 `scripts/`、`references/`、`examples/` 均相对本 Skill 根目录。Skill 常经软链接安装，先解析真实路径，命令中写成 `<skill-root>/scripts/...`。父项目指 Skill 根目录的上一级（日课创作），初稿目录是 `<父项目>/work/`，不要写进当前工作目录。
 
 ## 每次必读
 
@@ -102,12 +106,22 @@ description: "按 Stephen 的文章风格和已确认反馈撰写或改写 AI �
 逐项执行 [交付检查](references/check_standards.md)，有一项不通过就改正文。再运行：
 
 ```bash
-python3 stephen-writing-skill/scripts/check_style.py "待检查文件.md"
+python3 "<skill-root>/scripts/check_style.py" "待检查文件.md"
 ```
 
-未确认初稿写入 `work/`，不进入案例库。只有用户确认定稿或明确要求更新 Skill 时，才按 [反馈学习协议](references/feedback_learning.md) 更新案例与规则。
+未确认初稿写入 `<父项目>/work/`，不进入案例库。只有用户确认定稿或明确要求更新 Skill 时，才按 [反馈学习协议](references/feedback_learning.md) 更新案例与规则。
 
 默认只交付用户要求的成品。飞书、微信、发布、覆盖远端文档等外部写入必须来自当前请求或既有明确授权。
+
+交付时正文之后只附一段简短汇报，按实际情况填写，不适用的项省略：
+
+```text
+文件：<绝对路径>
+核心判断：<一句话>
+检查：交付检查 <通过/未通过项>；check_style <通过/问题数>；覆盖率 <数字与口径>
+待确认：<需要用户核实的事实、亲历或授权>
+完成层级：<本地生成 / 格式检查 / 目标应用写入 / 远程读回>
+```
 
 ## 异常与停止条件
 
