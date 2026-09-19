@@ -1,47 +1,29 @@
 # Stephen Writing Skill
 
-这是 Stephen 在「日课创作」项目中维护的个人中文写作 Skill。它用于把文章、链接、截图、逐字稿、研究材料和人工反馈编辑成高信息密度的 AI 热点、产品体验、概念方法与实践指南。
+Stephen 在「日课创作」项目里维护的中文写作 Skill：把文章、链接、截图、逐字稿和资料，写成 AI 热点、产品体验、概念拆解和实践指南类的日课文章，写给对 AI 感兴趣但不熟悉术语的普通读者。
 
-## 它解决什么
+## 它怎么工作
 
-这个 Skill 的核心不是复刻几个句式，而是稳定完成四个编辑判断：
+1. 写稿的 Agent 读写作指南、所属分类的说明和一两篇范文，按 Stephen 这次的要求写初稿。
+2. 另开一个 Agent 按审稿指南找问题，写稿的 Agent 按意见改一轮。
+3. 初稿交给 Stephen，他自己动手改成发布版。
+4. Stephen 给出定稿后，对比初稿和定稿，只把反复出现的修改写进规则。
+5. 每次改规则，都在固定题库上和旧版本盲评对比，通过才上线。
 
-1. 标题到底承诺读者获得什么。
-2. 哪条主路径能让读者抵达这个终点。
-3. 哪些内容即使正确也必须删除。
-4. 怎样保留 Stephen 的判断站位与自然中文，同时不伪造经历和事实。
+## 文件
 
-## 信息架构
-
-- `SKILL.md`：任务路由、规则优先级、核心工作流和硬边界。
-- `references/editorial_decisions.md`：跨题材的编辑决策系统。
-- `references/voice.md`：Stephen 稳定的作者声音与中文表达习惯。
-- `references/check_standards.md`：交付前的硬检查表。
-- `references/feedback_learning.md`：用户交付定稿或审核反馈时，如何避免补丁式更新。
-- `examples/*/standards.md`：每类文章独有的结构选择与代表案例。
-- `examples/`：用户确认的最终案例，不自动充当事实来源。
-- `scripts/check_style.py`：标点与高频模型句式检查。
-- `scripts/save_draft.py`：用户确认定稿后的归档辅助脚本。
-
-## 使用方式
-
-每次写作先完整读取 `SKILL.md`，再按其中的渐进式路由读取核心 references、一个分类标准和一至两篇最接近的案例。不要一次加载全部案例。
-
-初稿默认写入父项目 `work/`。只有用户确认定稿或明确要求更新 Skill 后，才进入案例库并更新规则。
-
-## 反馈如何进入 Skill
-
-未来的反馈不再直接变成新禁令。先比较模型稿、用户定稿和审核原话，再判断根因、作用域与反例。能由现有高阶原则解释的反馈只更新案例；确实暴露规则缺口时，优先替换或合并旧规则，不在多个文件重复追加。
-
-## 质量底线
-
-- 不伪造亲历、实测、采访、业务结果和数据。
-- 当前用户要求高于旧案例与默认比例。
-- 标题、读者、主路径与结尾必须指向同一终点。
-- 信息密度按有效增量与阅读成本判断，不按字数和术语数量判断。
-- 面向小白时降低无关门槛，但不牺牲核心机制。
-- 正文默认不用双引号，必要时只用「」；尽量不用破折号和翻案句。
+| 文件 | 给谁看 | 干什么 |
+|---|---|---|
+| `SKILL.md` | 写稿 Agent | 要读什么、写作步骤、规则冲突时听谁的 |
+| `references/writing.md` | 写稿 Agent、审稿 Agent | Stephen 怎么取舍、怎么讲、用什么语气，每条附一个真实例子 |
+| `references/review.md` | 审稿 Agent | 逐项检查什么、怎么写审稿意见 |
+| `references/learning.md` | 改 Skill 的 Agent | 怎么从 Stephen 的定稿里学，什么修改才进规则 |
+| `references/evaluation.md` | 改 Skill 的 Agent、Stephen | 评测怎么设计、怎么跑、上线标准、怎么恢复旧版本 |
+| `examples/<分类>/standards.md` | 写稿 Agent | 这一类文章写给谁、常见写法、容易出错的地方、推荐范文 |
+| `examples/<分类>/*.md` | 写稿 Agent | Stephen 确认过的定稿 |
+| `scripts/check_style.py` | 审稿 Agent | 数出双引号、破折号、先否定再肯定的句式，偏多时报错 |
+| `scripts/eval_writing.py` | 改 Skill 的 Agent | 准备评测任务、汇总盲评结果、记录历史、恢复旧版本 |
 
 ## 版本管理
 
-权威维护源是父项目中的 `./stephen-writing-skill/`。Skill 更新先提交父项目 Git，再由 `scripts/push_stephen_writing_skill.py` 同步到公开仓库 [Stephen-creater/stephen-writing-skill](https://github.com/Stephen-creater/stephen-writing-skill)。其他同名安装副本不作为编辑源。
+权威维护源是父项目里的 `./stephen-writing-skill/`。更新先提交父项目的 Git，再用父项目的 `scripts/push_stephen_writing_skill.py` 同步到公开仓库 [Stephen-creater/stephen-writing-skill](https://github.com/Stephen-creater/stephen-writing-skill)。通过评测的版本打 `writing-v*` 标签，可以随时恢复。
