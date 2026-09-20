@@ -3,8 +3,10 @@
 题库、运行结果和打分都在父项目的 评测/ 目录，只在本机（含付费文章全文），不进 Git。
 评测怎么设计、为什么这样设计，见 references/evaluation.md。
 
-  prepare <版本名> [--ref 提交或标签] [--split dev|holdout|all]
+  prepare <版本名> [--ref 提交或标签] [--split dev|holdout|all] [--reuse-drafts 旧版本名]
       给每道题准备写作任务：复制这一版 Skill（去掉这道题自己的范文），写好 任务.md
+      --reuse-drafts 会把旧版本那一轮的未审初稿复制过来：只改了审稿指南时用它，
+      跳过最贵的起草环节，两版从同一篇未审初稿出发，差别只来自审稿，结果也更准
   pairs <旧版本> <新版本> [--split ...]
       生成盲评任务：两份初稿随机标成 A、B，每道题两位评委、位置互换
   calibrate
@@ -114,7 +116,7 @@ Stephen 的要求：
 - 正文写到 `{out}/初稿.md`（只放文章本身）
 - 交付说明写到 `{out}/交付说明.md`
 
-评测规则：
+{reuse}评测规则：
 - 除了上面列出的材料，不要读取 日课创作 目录下的 已发布文章/、评测/、work/、stephen-writing-skill/，也不要读 ~/.codex 或 ~/.claude 里其他版本的 Skill。
 - 不联网。材料不够的地方按材料写，需要核实的事实写进交付说明。
 - Skill 要求的步骤照做（包括它要求的审稿），只是不要问 Stephen 问题，按最合理的理解直接写完。
@@ -135,12 +137,20 @@ def cmd_prepare(args: argparse.Namespace) -> None:
             shutil.rmtree(skill_copy)
         shutil.copytree(base, skill_copy)
         hide_own_example(skill_copy, case.get("example"))
+        reused = False
+        if args.reuse_drafts:
+            source = RUNS / args.reuse_drafts / case["id"] / "初稿-未审.md"
+            if not source.exists():
+                raise SystemExit(f"{args.reuse_drafts} 那一轮没有留下未审初稿：{source}")
+            shutil.copy(source, out / "初稿-未审.md")
+            reused = True
         materials = "\n".join(f"- `{p}`" for p in sorted((case["dir"] / "材料").glob("*.md")))
         brief = (case["dir"] / "要求.md").read_text(encoding="utf-8").strip()
-        task = TASK.format(brief=brief, materials=materials, skill=skill_copy, out=out)
+        reuse_note = f"这道题的未审初稿已经写好，在 `{out}/初稿-未审.md`，直接从审稿那一步开始。\n\n" if reused else ""
+        task = TASK.format(brief=brief, materials=materials, skill=skill_copy, out=out, reuse=reuse_note)
         (out / "任务.md").write_text(task, encoding="utf-8")
-        tasks.append({"case": case["id"], "split": case["split"], "task": str(out / "任务.md"), "out": str(out)})
-    manifest = {"label": args.label, "ref": args.ref or "工作区", "commit": commit, "tasks": tasks}
+        tasks.append({"case": case["id"], "split": case["split"], "task": str(out / "任务.md"), "out": str(out), "起草": "复用 " + args.reuse_drafts if reused else "重跑"})
+    manifest = {"label": args.label, "ref": args.ref or "工作区", "commit": commit, "复用未审初稿": args.reuse_drafts, "tasks": tasks}
     (run / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(manifest, ensure_ascii=False, indent=1))
 
@@ -320,6 +330,7 @@ def main() -> None:
     p.add_argument("label")
     p.add_argument("--ref")
     p.add_argument("--split", default="all", choices=["dev", "holdout", "all"])
+    p.add_argument("--reuse-drafts", help="复用这个版本那一轮的未审初稿，只重跑审稿和修改")
     p.set_defaults(func=cmd_prepare)
     p = sub.add_parser("pairs")
     p.add_argument("old")

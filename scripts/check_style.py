@@ -1,4 +1,4 @@
-"""数出正文里容易带 AI 味的标点和句式：双引号、破折号、先否定再肯定的句式。
+"""数出正文的字数，以及容易带 AI 味的标点和句式：双引号、破折号、先否定再肯定的句式。
 
 这些东西大多数时候不用，但写得自然的文章偶尔出现一两处没关系，所以脚本只在数量偏多时
 返回失败，数量少时列出来供审稿人判断。代码块和行内代码不算。
@@ -72,7 +72,11 @@ def main() -> None:
     parser.add_argument('path', type=Path)
     args = parser.parse_args()
 
-    issues = find_issues(args.path.read_text(encoding='utf-8'))
+    text = args.path.read_text(encoding='utf-8')
+    body = re.sub(r'```.*?```', '', text, flags=re.S)
+    chinese = len(re.findall(r'[\u4e00-\u9fff]', body))
+    print(f'字数：汉字 {chinese}，去空白共 {len(re.sub(r"[ \t\n]", "", body))}（不含代码块）')
+    issues = find_issues(text)
     total = counts(issues)
     for issue in issues:
         print(f'{args.path}:{issue.line}: {issue.kind} {issue.text}')

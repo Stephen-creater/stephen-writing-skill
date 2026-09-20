@@ -23,6 +23,9 @@ Stephen 在「日课创作」项目里维护的中文写作 Skill：把文章、
 | `examples/<分类>/*.md` | 写稿 Agent | Stephen 确认过的定稿 |
 | `scripts/check_style.py` | 审稿 Agent | 数出双引号、破折号、先否定再肯定的句式，偏多时报错 |
 | `scripts/eval_writing.py` | 改 Skill 的 Agent | 准备评测任务、汇总盲评结果、记录历史、恢复旧版本 |
+| `scripts/save_materials.py` | 写稿 Agent | 交付时把这次的要求和材料原样存一份，供以后加进评测题库 |
+| `scripts/add_case.py` | 改 Skill 的 Agent | 把一篇已发布的文章加成评测题目 |
+| `scripts/edit_ratio.py` | 改 Skill 的 Agent、Stephen | 算一篇初稿到发布版被删改了多少，记一行账，不用开 Agent |
 
 ## 版本管理
 
