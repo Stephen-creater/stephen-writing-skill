@@ -14,7 +14,7 @@ Stephen 在「日课创作」项目里维护的中文写作 Skill：把文章、
 
 | 文件 | 给谁看 | 干什么 |
 |---|---|---|
-| `SKILL.md` | 写稿 Agent | 要读什么、写作步骤、规则冲突时听谁的 |
+| `SKILL.md` | 写稿 Agent | 要读什么、写作步骤、Stephen 给回稿子怎么改、规则冲突时听谁的 |
 | `references/writing.md` | 写稿 Agent、审稿 Agent | Stephen 怎么取舍、怎么讲、用什么语气，每条附一个真实例子 |
 | `references/review.md` | 审稿 Agent | 逐项检查什么、怎么写审稿意见 |
 | `references/learning.md` | 改 Skill 的 Agent | 怎么从 Stephen 的定稿里学，什么修改才进规则 |
