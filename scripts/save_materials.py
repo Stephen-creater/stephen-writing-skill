@@ -48,8 +48,8 @@ def main() -> None:
         saved.append("链接.txt")
 
     print(f"已存到 {out}：要求.md，材料 {len(saved)} 份（{'、'.join(saved) or '无'}）")
-    if not saved:
-        print("提示：没有存下任何材料正文，这篇以后进不了评测题库")
+    if not any(name != "链接.txt" for name in saved):
+        raise SystemExit("没有存下任何材料正文，这篇进不了评测题库。把取到的网页正文、粘贴的原文存成文件再跑一次（真出过一次：只留了链接，题库里补不回来）")
 
 
 if __name__ == "__main__":
