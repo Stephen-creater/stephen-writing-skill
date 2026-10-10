@@ -24,4 +24,5 @@
 - 长的推理：[一文讲透AI的智能涌现，以及为什么需要世界模型](一文讲透AI的智能涌现，以及为什么需要世界模型.md)
 - 企业怎么落地：[企业 AI 落地的三层路径：先锋、共享、嵌入](企业%20AI%20落地的三层路径%EF%BC%9A先锋、共享、嵌入.md)
 - 短的行业观点：[下一个5年，做业务的版本答案：掌握行业Harness](%E4%B8%8B%E4%B8%80%E4%B8%AA5%E5%B9%B4%EF%BC%8C%E5%81%9A%E4%B8%9A%E5%8A%A1%E7%9A%84%E7%89%88%E6%9C%AC%E7%AD%94%E6%A1%88%EF%BC%9A%E6%8E%8C%E6%8F%A1%E8%A1%8C%E4%B8%9AHarness.md)
+- 宏观趋势判断（先给骨架、Stephen 口述成文、再按老板立场改定）：[Personal agent 火了，但真正的机会不在个人助理](10.9%20Personal%20agent%EF%BC%88%E4%B8%AA%E4%BA%BA%E5%8A%A9%E7%90%86%EF%BC%89%E7%81%AB%E4%BA%86%EF%BC%8C%E4%BD%86%E7%9C%9F%E6%AD%A3%E7%9A%84%E6%9C%BA%E4%BC%9A%E4%B8%8D%E5%9C%A8%E4%B8%AA%E4%BA%BA%E5%8A%A9%E7%90%86.md)
 - 压缩趋势文章：[未来的某种形状：私人定制产品](%E6%9C%AA%E6%9D%A5%E7%9A%84%E6%9F%90%E7%A7%8D%E5%BD%A2%E7%8A%B6%EF%BC%9A%E7%A7%81%E4%BA%BA%E5%AE%9A%E5%88%B6%E4%BA%A7%E5%93%81.md)
