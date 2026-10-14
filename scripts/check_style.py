@@ -1,8 +1,9 @@
 """数出正文的字数、五句以上的长段落，以及容易带 AI 味的标点和句式：双引号、破折号、先否定再肯定的句式、套话。
 
 套话的词表参考 Humanizer-zh、stop-slop 这类去 AI 味项目，只留 Stephen 已发布的 57 篇里几乎不用的词（每篇最多 2 个）。
-另外两类只列出来不算失败，因为 Stephen 自己偶尔也这么写：几个字就单独成段的短句（「问题是慢。」这种造势句），
-以及段首的「也就是说」（常常是在复述上一段）。
+另外几类只列出来不算失败，因为 Stephen 自己偶尔也这么写：几个字就单独成段的短句（「问题是慢。」这种造势句），
+段首的「也就是说」（常常是在复述上一段），正文里的代码块和表格（日课正文不放），
+以及第二次出现的「之前讲过」（全文最多一次）。
 
 长段落：Stephen 发布的文章一段平均不到两句，五句以上的段落不到二十分之一。五句以上的段落列出来，超过 3 段算偏多（已发布文章里九成不超过 3 段）。
 
@@ -101,6 +102,25 @@ def hints(text: str) -> list[tuple[int, str, str]]:
     return found
 
 
+EARLIER = re.compile(r'(之前|上次|以前|此前|前面|昨天|前天|日课)[^。！？，\n]{0,12}(讲过|说过|聊过|提过|写过)')
+
+
+def markdown_and_repeats(text: str) -> list[tuple[int, str, str]]:
+    """正文里的代码块、表格，以及第二次起的「之前讲过」。日课正文不放代码和表格，「讲过」全文最多一次。"""
+    found, earlier = [], 0
+    for number, line in enumerate(text.splitlines(), start=1):
+        if line.lstrip().startswith('```'):
+            found.append((number, '代码块', line.strip()[:20]))
+        elif re.match(r'^\s*\|.*\|\s*$', line) and not re.match(r'^\s*\|[\s:|-]+\|\s*$', line):
+            found.append((number, '表格', line.strip()[:20]))
+    for number, line in prose_lines(text):
+        for match in EARLIER.finditer(line):
+            earlier += 1
+            if earlier > 1:
+                found.append((number, '又一次「讲过」', match.group()))
+    return found
+
+
 def long_paragraphs(text: str) -> list[tuple[int, int, str]]:
     """返回 (起始行号, 句子数, 段首二十字)。标题、列表、引用、表格不算。"""
     found = []
@@ -153,12 +173,20 @@ def main() -> None:
         print(f'{args.path}:{line}: 长段落 {n} 句「{head}……」')
     for line, kind, head in hints(text):
         print(f'{args.path}:{line}: {kind}「{head}」（提醒：是不是在造势或复述上一段）')
+    fences = 0
+    for line, kind, head in markdown_and_repeats(text):
+        if kind == '代码块':
+            fences += 1
+            if fences % 2 == 0:
+                continue
+        note = '日课正文不放代码和表格，改成用话讲' if kind in ('代码块', '表格') else '「之前讲过」全文最多一次，看是不是在换说法复述'
+        print(f'{args.path}:{line}: {kind}「{head}」（提醒：{note}）')
     over = {kind: n for kind, n in total.items() if n > LIMITS[kind]}
     summary = '，'.join(f'{kind} {n}' for kind, n in total.items())
     if over:
         print(f'偏多，需要改：{summary}（上限：双引号 3 对、破折号 2 处、先否定再肯定 2 句、套话 2 个、五句以上的段落 3 段）')
         raise SystemExit(1)
-    print(f'数量不多：{summary}。读着自然可以不改。' if issues else '没有发现')
+    print(f'数量不多：{summary}。读着自然可以不改。' if issues else '双引号、破折号、句式、套话、长段落都没有发现')
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ Stephen 在「日课创作」项目里维护的中文写作 Skill：把文章、
 2. 另开一个 Agent 按审稿指南找问题，写稿的 Agent 按意见改一轮。
 3. 初稿交给 Stephen，他自己动手改成发布版。
 4. Stephen 给出定稿后，对比初稿和定稿，只把反复出现的修改写进规则。
-5. 每次改规则，都在固定题库上和旧版本盲评对比，通过才上线。
+5. 改规则默认不跑评测，改完自检就提交；Stephen 明确要求时，才在固定题库上和旧版本盲评对比。
 
 ## 文件
 
@@ -21,7 +21,7 @@ Stephen 在「日课创作」项目里维护的中文写作 Skill：把文章、
 | `references/evaluation.md` | 改 Skill 的 Agent、Stephen | 评测怎么设计、怎么跑、上线标准、怎么恢复旧版本 |
 | `examples/<分类>/standards.md` | 写稿 Agent | 这一类文章写给谁、常见写法、容易出错的地方、推荐范文 |
 | `examples/<分类>/*.md` | 写稿 Agent | Stephen 确认过的定稿 |
-| `scripts/check_style.py` | 审稿 Agent | 数出双引号、破折号、先否定再肯定的句式，偏多时报错 |
+| `scripts/check_style.py` | 审稿 Agent | 数出双引号、破折号、先否定再肯定的句式、套话和长段落，偏多时报错；正文里的代码块、表格和第二次「之前讲过」只提醒 |
 | `scripts/eval_writing.py` | 改 Skill 的 Agent | 准备评测任务、汇总盲评结果、记录历史、恢复旧版本 |
 | `scripts/save_materials.py` | 写稿 Agent | 交付时把这次的要求和材料原样存一份，供以后加进评测题库 |
 | `scripts/add_case.py` | 改 Skill 的 Agent | 把一篇已发布的文章加成评测题目 |
