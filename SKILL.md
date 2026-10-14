@@ -15,7 +15,7 @@ description: "按 Stephen 的写法，把链接、截图、逐字稿、资料或
 2. 文章所属分类的 `examples/<分类>/standards.md`。
 3. 那份 standards.md 推荐的一到两篇范文。
 
-审稿的 Agent 读 [审稿指南](references/review.md)。Stephen 给定稿或要求改 Skill 时，读 [学习定稿](references/learning.md)。改完 Skill 要跑 [评测](references/evaluation.md)。
+审稿的 Agent 读 [审稿指南](references/review.md)。Stephen 给定稿或要求改 Skill 时，读 [学习定稿](references/learning.md)。改完 Skill 默认不跑 [评测](references/evaluation.md)，Stephen 明确要求时才跑；交付时也不用跟他汇报评测。
 
 ## 分类
 

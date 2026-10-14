@@ -27,7 +27,7 @@
 
 1. 按 `references/learning.md` 判断哪些修改该进规则。
 2. 只改受影响的文件，同一条规则只写在一个地方。
-3. 按 `references/evaluation.md` 跑评测，新版本过线才提交。
+3. 默认不跑评测（Stephen 2026-10-13 定的），改完跑一遍 `scripts/check_style.py` 自检就提交。只有 Stephen 明确要求时，才按 `references/evaluation.md` 跑。
 4. 本地提交，打 `writing-v*` 标签，再同步公开仓库。
 
 ## Git
